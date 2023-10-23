@@ -14,8 +14,7 @@ classdef KUKAiiwa7 < RobotBaseClass
             end
             self.model.base = self.model.base.T * baseTr;
 
-            q = zeros(1,7);
-            self.model.plot(q);
+            self.PlotAndColourRobot();
         end
 
         function CreateModel(self)
@@ -27,7 +26,7 @@ classdef KUKAiiwa7 < RobotBaseClass
             link(4) = Link('d',0,'a',0,'alpha',-pi/2,'qlim',deg2rad([-120 120]));
             link(5) = Link('d',0.4,'a',0,'alpha',-pi/2,'qlim',deg2rad([-170 170]));
             link(6) = Link('d',0,'a',0,'alpha',pi/2,'qlim',deg2rad([-120 120]));
-            link(7) = Link('d',0.126,'a',0,'alpha',pi/2,'qlim',deg2rad([-175 175]));
+            link(7) = Link('d',0.126,'a',0,'alpha',0,'qlim',deg2rad([-175 175]));
 
             % KUKAiiwa7 :: 7 axis, RRRRRRR, stdDH, slowRNE
             % +---+-----------+-----------+-----------+-----------+-----------+
