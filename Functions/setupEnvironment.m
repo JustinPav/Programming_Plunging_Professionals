@@ -1,4 +1,4 @@
-function setupEnvironment(KUKA,DoBot)
+function items = setupEnvironment(KUKA,DoBot)
 view(45,30)
 axis([-1.5, 1.5, -1, 1, 0, 2])
 hold on
@@ -18,28 +18,12 @@ set(toilet,'Vertices',transformedToiletVertices(:,1:3));
 % Add in a shelf and move it to the front left edge of the workspace
 shelf = PlaceObject('shelf.ply');
 shelfVertices = get(shelf,'Vertices');
-transformedShelfVertices = [shelfVertices,ones(size(shelfVertices,1),1)] * transl(-0.8,-0.85,1)';
+transformedShelfVertices = [shelfVertices,ones(size(shelfVertices,1),1)] * transl(-0.8,-0.85,0.6)';
 set(shelf,'Vertices',transformedShelfVertices(:,1:3));
 shelf = PlaceObject('shelf.ply');
 shelfVertices = get(shelf,'Vertices');
-transformedShelfVertices = [shelfVertices,ones(size(shelfVertices,1),1)] * transl(-0.8,-0.55,1)';
+transformedShelfVertices = [shelfVertices,ones(size(shelfVertices,1),1)] * transl(-0.8,-0.55,0.6)';
 set(shelf,'Vertices',transformedShelfVertices(:,1:3));
-
-% Add in a bleach and move it to the front left edge of the workspace
-plunger = PlaceObject('plunger.ply');
-plungerVertices = get(plunger,'Vertices');
-scalingFactor = 0.1;
-scaledPlungerVertices = plungerVertices * scalingFactor;
-transformedPlungerVertices = [scaledPlungerVertices, ones(size(scaledPlungerVertices,1),1)] * transl(-1.25,-0.6,1.25)';
-set(plunger,'Vertices',transformedPlungerVertices(:,1:3));
-
-% Add in a bleach and move it to the front left edge of the workspace
-bleach = PlaceObject('bleach.ply');
-bleachVertices = get(bleach,'Vertices');
-scalingFactor = 0.005;
-scaledBleachVertices = bleachVertices * scalingFactor;
-transformedBleachVertices = [scaledBleachVertices, ones(size(scaledBleachVertices,1),1)] * transl(-1.25,-0.75,1.05)';
-set(bleach,'Vertices',transformedBleachVertices(:,1:3));
 
 % Add in a bathroom wall into the workspace
 wall = PlaceObject('wall.ply');
@@ -50,6 +34,17 @@ set(wall,'Vertices',transformedWallVertices(:,1:3))
 % Move robots into their correct positions
 KUKA.model.base = transl(0,0.2,0);
 KUKA.model.animate(KUKA.model.getpos)
-DoBot.model.base = transl(-0.8,-0.6,1)*trotz(pi/2);
+DoBot.model.base = transl(-0.8,-0.6,0.6)*trotz(pi/2);
 DoBot.model.animate(DoBot.model.getpos)
+
+items = RobotItem(2);
+items.itemModel{1}.base = transl(-1.25,-0.6,0.55);
+items.itemModel{1}.delay = 0.01;
+items.itemModel{1}.plot(0)
+items.itemModel{2}.base = transl(-1.25,-0.75,0.55);
+items.itemModel{2}.plot(0)
+items.itemModel{2}.delay = 0.01;
+
+view(45,30)
+axis([-1.5, 1.5, -1, 1, 0, 2])
 end
