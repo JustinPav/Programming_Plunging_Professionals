@@ -1,4 +1,4 @@
-function items = setupEnvironment(KUKA,DoBot)
+function [items, environment] = setupEnvironment(KUKA,DoBot)
 view(45,30)
 axis([-1.5, 1.5, -1, 1, 0, 2])
 hold on
@@ -16,14 +16,14 @@ transformedToiletVertices = [toiletVertices,ones(size(toiletVertices,1),1)] * tr
 set(toilet,'Vertices',transformedToiletVertices(:,1:3));
 
 % Add in a shelf and move it to the front left edge of the workspace
-shelf = PlaceObject('shelf.ply');
-shelfVertices = get(shelf,'Vertices');
+shelf1 = PlaceObject('shelf.ply');
+shelfVertices = get(shelf1,'Vertices');
 transformedShelfVertices = [shelfVertices,ones(size(shelfVertices,1),1)] * transl(-0.8,-0.85,0.6)';
-set(shelf,'Vertices',transformedShelfVertices(:,1:3));
-shelf = PlaceObject('shelf.ply');
-shelfVertices = get(shelf,'Vertices');
+set(shelf1,'Vertices',transformedShelfVertices(:,1:3));
+shelf2 = PlaceObject('shelf.ply');
+shelfVertices = get(shelf2,'Vertices');
 transformedShelfVertices = [shelfVertices,ones(size(shelfVertices,1),1)] * transl(-0.8,-0.55,0.6)';
-set(shelf,'Vertices',transformedShelfVertices(:,1:3));
+set(shelf2,'Vertices',transformedShelfVertices(:,1:3));
 
 % Add in a bathroom wall into the workspace
 wall = PlaceObject('wall.ply');
@@ -44,6 +44,12 @@ items.itemModel{1}.plot(0)
 items.itemModel{2}.base = transl(-1.25,-0.75,0.55);
 items.itemModel{2}.plot(0)
 items.itemModel{2}.delay = 0.01;
+
+environment = cell(4);
+environment{1} = toilet;
+environment{2} = shelf1;
+environment{3} = shelf2;
+environment{4} = wall;
 
 view(45,30)
 axis([-1.5, 1.5, -1, 1, 0, 2])
