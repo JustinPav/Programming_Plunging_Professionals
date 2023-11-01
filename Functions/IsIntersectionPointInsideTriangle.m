@@ -26,5 +26,11 @@ if (t < 0.0 || (s + t) > 1.0)  % intersectP is outside Triangle
     return;
 end
 
+% Situation if D = 0 then the test is invalid as s and t become invalid
+if isnan(s) || isnan(t)
+    result = 0;
+    return;
+end
+
 result = 1;                      % intersectP is in Triangle
 end
