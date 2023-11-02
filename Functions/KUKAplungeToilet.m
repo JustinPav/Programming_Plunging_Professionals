@@ -1,8 +1,8 @@
 function qMatrix = KUKAplungeToilet(kuka,q)
 n = kuka.model.n;
 t = 5;                                                                     % Total time in seconds
-stepsPerPlunge = 50;                                                       % Number of steps per plunging action
-numberOfPlunges = 6;                                                       % Number of plunges per run through
+stepsPerPlunge = 30;                                                       % Number of steps per plunging action
+numberOfPlunges = 4;                                                       % Number of plunges per run through
 steps = stepsPerPlunge*numberOfPlunges;                                    % No. of steps
 deltaT = t/steps;                                                          % Discrete time step
 qMatrix = zeros(steps,n);                                                  % Assign memory for joint angles
@@ -13,13 +13,13 @@ minManipMeasure = 0.3;                                                     % Req
 % the plunger is pushed down and then a high velocity up with a pause at
 % the top
 xdotMatrix = zeros(6,steps); 
-velocity = 3;                                                              % velocity at which the plunger is moved
+velocity = 1;                                                              % velocity at which the plunger is moved
 for i = 1:numberOfPlunges
     count = 1;
     for m = stepsPerPlunge*(i-1)+1:stepsPerPlunge*i
-        if count <= 10
+        if count <= 12
             xdotMatrix(3,m) = -velocity;
-        elseif count > 10 && count <= 20
+        elseif count > 12 && count <= 24
             xdotMatrix(3,m) = velocity;
         else
             xdotMatrix(3,m) = 0;

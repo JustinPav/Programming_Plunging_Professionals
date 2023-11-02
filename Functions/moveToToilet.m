@@ -1,10 +1,10 @@
-function qMatrix =  moveToToilet(kuka)
+function qMatrix = moveToToilet(kuka)
 
 % Start with RMRC to move KUKA robot from its current position to to toilet
 q0 = kuka.model.getpos;                                                    % Get robot start position
 n = kuka.model.n;
 t = 5;                                                                     % Total time in seconds
-steps = 100;                                                               % No. of steps
+steps = 70;                                                               % No. of steps
 deltaT = t/steps;                                                          % Discrete time step
 qMatrix = zeros(steps,n);                                                  % Assign memory for joint angles
 m = zeros(1,steps);                                                        % For recording measure of manipulability
