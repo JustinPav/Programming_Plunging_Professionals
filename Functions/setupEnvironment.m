@@ -21,6 +21,32 @@ set(toilet,'Vertices',transformedToiletVertices(:,1:3));
 environment{1,1} = toilet;
 environment{1,2} = toiletNormals;
 
+% Add in extinguisher and move it to the corner of the workspace
+extinguisher = PlaceObject('extinguisher.ply');
+extinguisherVertices = get(extinguisher,'Vertices');
+transformedExtinguisherVertices = [extinguisherVertices,ones(size(extinguisherVertices,1),1)] * transl(-1.25,0.8,0)';
+set(extinguisher,'Vertices',transformedExtinguisherVertices(:,1:3));
+
+% Add in warning sign and move it to the corner of the workspace
+WarningSign = PlaceObject('WarningSign.ply');
+WarningSignVertices = get(WarningSign,'Vertices');
+transformedWarningSignVertices = [WarningSignVertices,ones(size(WarningSignVertices,1),1)] * trotx(-pi/2)* transl(0.6,0.97,1.4)';
+set(WarningSign,'Vertices',transformedWarningSignVertices(:,1:3));
+
+% Add in wetsign and move it to the corner of the workspace
+wetsign = PlaceObject('wetsign.ply');
+wetsignVertices = get(wetsign,'Vertices');
+transformedWetsignVertices = [wetsignVertices,ones(size(wetsignVertices,1),1)] * transl(1.25,-0.8,0)';
+set(wetsign,'Vertices',transformedWetsignVertices(:,1:3));
+
+% Add in stopbutton and move it onto the wall of the workspace
+stopbutton = PlaceObject('stopbutton.ply');
+stopbuttonVertices = get(stopbutton,'Vertices');
+s = 0.5;
+stopbuttonVertices = stopbuttonVertices * s;
+transformedStopbuttonVertices = [stopbuttonVertices,ones(size(stopbuttonVertices,1),1)] * trotx(-pi/2)* transl(0.25,1,1)';
+set(stopbutton,'Vertices',transformedStopbuttonVertices(:,1:3));
+
 % Add in a shelf and move it to the front left edge of the workspace
 shelf1 = PlaceObject('shelf.ply');
 shelfVertices = get(shelf1,'Vertices');
