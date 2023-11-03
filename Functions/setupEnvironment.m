@@ -2,7 +2,7 @@ function environment = setupEnvironment(KUKA,DoBot,items)
 view(45,30)
 axis([-1.5, 1.5, -1, 1, 0, 2])
 hold on
-environment = cell(4,2);
+environment = cell(8,2);
 
 
 surf([-1.8,-1.8;1.8,1.8] ...
@@ -20,32 +20,6 @@ transformedToiletVertices = [toiletVertices,ones(size(toiletVertices,1),1)] * tr
 set(toilet,'Vertices',transformedToiletVertices(:,1:3));
 environment{1,1} = toilet;
 environment{1,2} = toiletNormals;
-
-% Add in extinguisher and move it to the corner of the workspace
-extinguisher = PlaceObject('extinguisher.ply');
-extinguisherVertices = get(extinguisher,'Vertices');
-transformedExtinguisherVertices = [extinguisherVertices,ones(size(extinguisherVertices,1),1)] * transl(-1.25,0.8,0)';
-set(extinguisher,'Vertices',transformedExtinguisherVertices(:,1:3));
-
-% Add in warning sign and move it to the corner of the workspace
-WarningSign = PlaceObject('WarningSign.ply');
-WarningSignVertices = get(WarningSign,'Vertices');
-transformedWarningSignVertices = [WarningSignVertices,ones(size(WarningSignVertices,1),1)] * trotx(-pi/2)* transl(0.6,0.97,1.4)';
-set(WarningSign,'Vertices',transformedWarningSignVertices(:,1:3));
-
-% Add in wetsign and move it to the corner of the workspace
-wetsign = PlaceObject('wetsign.ply');
-wetsignVertices = get(wetsign,'Vertices');
-transformedWetsignVertices = [wetsignVertices,ones(size(wetsignVertices,1),1)] * transl(1.25,-0.8,0)';
-set(wetsign,'Vertices',transformedWetsignVertices(:,1:3));
-
-% Add in stopbutton and move it onto the wall of the workspace
-stopbutton = PlaceObject('stopbutton.ply');
-stopbuttonVertices = get(stopbutton,'Vertices');
-s = 0.5;
-stopbuttonVertices = stopbuttonVertices * s;
-transformedStopbuttonVertices = [stopbuttonVertices,ones(size(stopbuttonVertices,1),1)] * trotx(-pi/2)* transl(0.25,1,1)';
-set(stopbutton,'Vertices',transformedStopbuttonVertices(:,1:3));
 
 % Add in a shelf and move it to the front left edge of the workspace
 shelf1 = PlaceObject('shelf.ply');
@@ -74,6 +48,48 @@ transformedWallVertices = [wallVertices, ones(size(wallVertices,1),1)] * trotz(p
 set(wall,'Vertices',transformedWallVertices(:,1:3))
 environment{4,1} = wall;
 environment{4,2} = wallNormals;
+
+% Add in extinguisher and move it to the corner of the workspace
+extinguisher = PlaceObject('extinguisher.ply');
+extinguisherVertices = get(extinguisher,'Vertices');
+pause(0.1)
+extinguisherNormals = get(extinguisher,'FaceNormals');
+transformedExtinguisherVertices = [extinguisherVertices,ones(size(extinguisherVertices,1),1)] * transl(-1.25,0.8,0)';
+set(extinguisher,'Vertices',transformedExtinguisherVertices(:,1:3));
+environment{5,1} = extinguisher;
+environment{5,2} = extinguisherNormals;
+
+% Add in warning sign and move it to the corner of the workspace
+WarningSign = PlaceObject('WarningSign.ply');
+WarningSignVertices = get(WarningSign,'Vertices');
+pause(0.01)
+WarningSignNormals = get(WarningSign,'FaceNormals');
+transformedWarningSignVertices = [WarningSignVertices,ones(size(WarningSignVertices,1),1)] * trotx(-pi/2)* transl(0.6,0.97,1.4)';
+set(WarningSign,'Vertices',transformedWarningSignVertices(:,1:3));
+environment{6,1} = WarningSign;
+environment{6,2} = WarningSignNormals;
+
+% Add in wetsign and move it to the corner of the workspace
+wetsign = PlaceObject('wetsign.ply');
+wetsignVertices = get(wetsign,'Vertices');
+pause(0.01)
+wetsignNormals = get(wetsign,'FaceNormals');
+transformedWetsignVertices = [wetsignVertices,ones(size(wetsignVertices,1),1)] * transl(1.25,-0.8,0)';
+set(wetsign,'Vertices',transformedWetsignVertices(:,1:3));
+environment{7,1} = wetsign;
+environment{7,2} = wetsignNormals;
+
+% Add in stopbutton and move it onto the wall of the workspace
+stopbutton = PlaceObject('stopbutton.ply');
+stopbuttonVertices = get(stopbutton,'Vertices');
+s = 0.5;
+stopbuttonVertices = stopbuttonVertices * s;
+pause(0.01)
+stopbuttonNormals = get(stopbutton,'FaceNormals');
+transformedStopbuttonVertices = [stopbuttonVertices,ones(size(stopbuttonVertices,1),1)] * trotx(-pi/2)* transl(0.25,1,1)';
+set(stopbutton,'Vertices',transformedStopbuttonVertices(:,1:3));
+environment{8,1} = stopbutton;
+environment{8,2} = stopbuttonNormals;
 
 % Move robots into their correct positions
 KUKA.model.base = transl(0,0.2,0);
