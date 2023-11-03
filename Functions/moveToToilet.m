@@ -12,7 +12,7 @@ minManipMeasure = 0.3;                                                     % Req
 
 % Set desired end position and create a trajectory between current position
 % and end goal
-Tr_goal = transl(0.6,0.5,0.65)*trotx(pi/2)*troty(pi/2)*trotz(pi);
+Tr_goal = transl(0.6,0.5,0.65)*trotx(pi/2)*troty(pi/2)*trotz(3*pi/2);
 Tr_current = kuka.model.fkine(q0).T;
 x = zeros(3,steps);                                                        % set up our trajectory array
 x(1,:) = linspace(Tr_current(1,4),Tr_goal(1,4),steps);                     % x trajectory
@@ -41,7 +41,6 @@ for i = 1:steps-1
 end
 
 qf = kuka.model.ikine(Tr_goal,qMatrix(steps,:));                           % Set an accurate goal for the end position of the robot and to align the end effector
-qf(7) = qf(7)+pi/2;
 qMatrix = [qMatrix;jtraj(qMatrix(steps,:),qf,50)];                         % Add the interpolation to the qMatrix
 
 end

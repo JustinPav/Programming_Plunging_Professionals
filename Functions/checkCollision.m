@@ -12,9 +12,10 @@ for qIndex = 1:size(q,1)
             vertOnPlane = vertex(faces(faceIndex,1)',:);
             [intersectP,check] = LinePlaneIntersection(faceNormals(faceIndex,:),vertOnPlane,tr(1:3,4,i)',tr(1:3,4,i+1)');
             if check == 1 && IsIntersectionPointInsideTriangle(intersectP,vertex(faces(faceIndex,:)',:))
+                plot3(intersectP(1),intersectP(2),intersectP(3),'g*');
                 disp('Intersection');
                 result = true;
-                return
+                % return
             end
         end
     end
